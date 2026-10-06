@@ -117,7 +117,7 @@ Where things are:
 | `DB_SSL_CA_CERT` | content of Aiven's CA certificate |
 | `JWT_SECRET` | 64 random hex characters (`php lava jwt:generate --show`) |
 | `REFRESH_TOKEN_KEY` | a **different** 64-char value |
-| `ALLOW_ORIGIN` | your frontend URL, e.g. `https://my-products.onrender.com` |
+| `ALLOW_ORIGIN` | exact frontend origin; multiple origins may be comma-separated, e.g. `https://my-products.onrender.com,https://api-tester.marasigan.dev` |
 | `MIGRATION_ENABLED` | `false` |
 
 4. Deploy. Your **Render API URL** is `https://<service>.onrender.com` — test `GET /api/products` (should be `401`).

@@ -145,8 +145,19 @@ $config['users_table'] = 'users';
 | a browser, so set your real domain in production.
 |
 */
-// Set ALLOW_ORIGIN to your deployed frontend URL in production (e.g. https://my-app.onrender.com)
-$config['allow_origin'] = getenv('ALLOW_ORIGIN') ?: '*';
+// Use one exact origin, or comma-separated exact origins (frontend, API tester).
+$allow_origins = getenv('ALLOW_ORIGIN');
+if ($allow_origins === false || trim($allow_origins) === '') {
+    $config['allow_origin'] = '*';
+} else {
+    $origins = array_values(array_filter(
+        array_map('trim', explode(',', $allow_origins)),
+        static function ($origin) {
+            return $origin !== '';
+        }
+    ));
+    $config['allow_origin'] = count($origins) > 1 ? $origins : ($origins[0] ?? '*');
+}
 
 /*
 |--------------------------------------------------------------------------
